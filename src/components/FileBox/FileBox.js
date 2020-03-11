@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Icon from '@material-ui/core/Icon'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -18,7 +19,15 @@ import { makeStyles } from '@material-ui/core/styles';
 // support taking pictures and embeding them in the final html
 const useStyles = makeStyles(theme => ({
     icon: {
-        marginRight: theme.spacing(2),
+        fontSize: "40px",
+        marginBottom: theme.spacing(1)
+    },
+    iconContainer: {
+        // marginRight: theme.spacing(2),
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        cursor: "pointer"
     },
     cardGrid: {
         paddingTop: theme.spacing(8),
@@ -32,45 +41,92 @@ const useStyles = makeStyles(theme => ({
     cardMedia: {
         paddingTop: '56.25%', // 16:9
     },
+    pink: {
+        backgroundColor: "pink"
+    },
+    yellow: {
+        backgroundColor: "yellow"
+    },
     cardContent: {
         flexGrow: 1,
     },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const files = [{ id: "new" }];
 
 const FileBox = () => {
     const classes = useStyles();
     return (
-        <Container className={classes.cardGrid} maxWidth="md">
-            <Grid container spacing={4}>
-                {cards.map(card => (
-                    <Grid item key={card} xs={12} sm={6} md={4}>
-                        <Card className={classes.card}>
-                            <CardMedia
-                                className={classes.cardMedia}
-                                image="https://source.unsplash.com/random"
-                                title="Image title"
-                            />
-                            <CardContent className={classes.cardContent}>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    Heading
-              </Typography>
-                                <Typography>
-                                    This is a media card. You can use this section to describe the content.
-              </Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    View
-              </Button>
-                                <Button size="small" color="primary">
-                                    Edit
-              </Button>
-                            </CardActions>
-                        </Card>
+        <Container className={classes.cardGrid} fixed>
+            <Grid container justify="space-between" spacing={4}>
+                <Grid xs={3} item className={classes.pink}>
+                    <Grid container alignItems="center" direction="column" spacing={8}>
+                        <Grid className={classes.iconContainer} item >
+                            <Icon className={classes.icon}>backuptwotone</Icon>
+                            <Typography align="center">
+                                upload
+                            </Typography>
+                        </Grid>
+                        <Grid className={classes.iconContainer} item>
+                            <Icon className={classes.icon}>createtwotone</Icon>
+                            <Typography align="center">
+                                type
+                            </Typography>
+                        </Grid>
+                        <Grid className={classes.iconContainer} item>
+                            <Icon className={classes.icon}>micTwoTone</Icon>
+                            <Typography align="center">
+                                record audio
+                            </Typography>
+                        </Grid>
+                        <Grid className={classes.iconContainer} item>
+                            <Icon className={classes.icon}>camera</Icon>
+                            <Typography align="center">
+                                take picture
+                            </Typography>
+                        </Grid>
+                        <Grid className={classes.iconContainer} item>
+                            <Icon className={classes.icon}>videocamtwotone</Icon>
+                            <Typography align="center">
+                                record video
+                            </Typography>
+                        </Grid>
                     </Grid>
-                ))}
+                    <Typography align="center">
+                        Select an action to begin
+                    </Typography>
+                </Grid>
+                <Grid item xs={8} className={classes.yellow}>
+                    <Grid container justify="center" className={classes.yellow}>
+                        {files.map(({ id }) => (
+                            <Grid item key={id} xs={10}>
+                                <Card className={classes.card}>
+                                    <CardMedia
+                                        className={classes.cardMedia}
+                                        image="https://source.unsplash.com/random"
+                                        title="Image title"
+                                    />
+                                    <CardContent className={classes.cardContent}>
+                                        <Typography gutterBottom variant="h5" component="h2">
+                                            Heading
+                                        </Typography>
+                                        <Typography>
+                                            This is a media card. You can use this section to describe the content.
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button size="small" color="primary">
+                                            View
+                                        </Button>
+                                        <Button size="small" color="primary">
+                                            Edit
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </Grid>
             </Grid>
         </Container>
     )
