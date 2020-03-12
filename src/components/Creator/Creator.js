@@ -1,14 +1,11 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Dropzone from "../Dropzone"
 
 // TODO:
 // support file upload
@@ -45,7 +42,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: "pink"
     },
     yellow: {
-        backgroundColor: "yellow"
+        // backgroundColor: "yellow"
     },
     cardContent: {
         flexGrow: 1,
@@ -54,19 +51,13 @@ const useStyles = makeStyles(theme => ({
 
 const files = [{ id: "new" }];
 
-const FileBox = () => {
+const Creator = () => {
     const classes = useStyles();
     return (
         <Container className={classes.cardGrid} fixed>
             <Grid container justify="space-between" spacing={4}>
                 <Grid xs={3} item className={classes.pink}>
                     <Grid container alignItems="center" direction="column" spacing={8}>
-                        <Grid className={classes.iconContainer} item >
-                            <Icon className={classes.icon}>backuptwotone</Icon>
-                            <Typography align="center">
-                                upload
-                            </Typography>
-                        </Grid>
                         <Grid className={classes.iconContainer} item>
                             <Icon className={classes.icon}>createtwotone</Icon>
                             <Typography align="center">
@@ -91,38 +82,19 @@ const FileBox = () => {
                                 record video
                             </Typography>
                         </Grid>
+                        <Grid className={classes.iconContainer} item>
+                            <Icon className={classes.icon}>savetwotone</Icon>
+                            <Typography align="center">
+                                Save
+                            </Typography>
+                        </Grid>
                     </Grid>
-                    <Typography align="center">
-                        Select an action to begin
-                    </Typography>
                 </Grid>
                 <Grid item xs={8} className={classes.yellow}>
                     <Grid container justify="center" className={classes.yellow}>
                         {files.map(({ id }) => (
                             <Grid item key={id} xs={10}>
-                                <Card className={classes.card}>
-                                    <CardMedia
-                                        className={classes.cardMedia}
-                                        image="https://source.unsplash.com/random"
-                                        title="Image title"
-                                    />
-                                    <CardContent className={classes.cardContent}>
-                                        <Typography gutterBottom variant="h5" component="h2">
-                                            Heading
-                                        </Typography>
-                                        <Typography>
-                                            This is a media card. You can use this section to describe the content.
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button size="small" color="primary">
-                                            View
-                                        </Button>
-                                        <Button size="small" color="primary">
-                                            Edit
-                                        </Button>
-                                    </CardActions>
-                                </Card>
+                                <Dropzone onDrop={() => { }} />
                             </Grid>
                         ))}
                     </Grid>
@@ -132,4 +104,4 @@ const FileBox = () => {
     )
 }
 
-export default FileBox
+export default Creator

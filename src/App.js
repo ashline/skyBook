@@ -1,13 +1,14 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
 
+import AppBar from '@material-ui/core/AppBar';
+import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Icon from '@material-ui/core/Icon'
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import FileBox from './components/FileBox/FileBox';
+
+import Creator from './components/Creator';
 
 const useStyles = makeStyles(theme => ({
   icon: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   heroContent: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
+    padding: theme.spacing(4, 0, 4),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -43,11 +44,11 @@ export default function Book() {
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
-          <Container maxWidth="sm">
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+          <Container maxWidth="lg">
+            <Typography component="h2" variant="h3" align="center" color="textPrimary" gutterBottom>
               Welcome to skyBook
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            <Typography variant="h6" align="center" color="textSecondary" paragraph>
               This is a scrap book powered by skyNet distributed platform which allows
                you to scrap together voice notes, songs, pictures, notes and videos.
                You can even take new photos, videos and voice notes without leaving the site!
@@ -70,7 +71,7 @@ export default function Book() {
           </Container>
         </div>
         {/* End hero unit */}
-        <FileBox />
+        <Creator />
       </main>
       {/* Footer */}
       <footer className={classes.footer}>

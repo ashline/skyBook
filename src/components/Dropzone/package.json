@@ -1,0 +1,5 @@
+{
+    "name": "drop-zone",
+    "description": "accepts files for upload",
+    "main": "./Dropzone"
+}

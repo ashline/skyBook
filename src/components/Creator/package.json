@@ -1,5 +1,5 @@
 {
-    "name": "file-box",
+    "name": "creator",
     "description": "Component for initiating content creation or uploading",
-    "main": "./FileBox.js"
+    "main": "./Creator.js"
 }
