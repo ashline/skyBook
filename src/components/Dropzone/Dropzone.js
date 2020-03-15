@@ -8,9 +8,8 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles';
 
+import { FAIL, FILE, SUCCESS } from "../../modules/constants"
 
-const FAIL = "fail"
-const SUCCESS = "success"
 
 const useStyles = makeStyles(theme => ({
     box: {
@@ -44,15 +43,19 @@ const Snacks = ({ type, onClose }) => (
 const Dropzone = ({ onDrop }) => {
     const [snackType, setSnackType] = useState("")
     const onFail = useCallback(() => setSnackType(FAIL), [])
-    const onSuccess = useCallback((arrayBuffer) => {
+    const onSuccess = useCallback((files) => {
         setSnackType(SUCCESS)
-        onDrop(arrayBuffer)
-    }, [])
+        onDrop(files)
+    }, [onDrop])
     const dropCallback = useCallback((acceptedFiles) => {
+        const promises = []
         acceptedFiles.forEach((file) => {
-            processFile(file, onSuccess, onFail);
+            promises.push(processFile(file));
         })
-    }, [])
+        Promise.all(promises).then(files => {
+            onSuccess(files)
+        }).catch(onFail)
+    }, [onFail, onSuccess])
     const { getRootProps, getInputProps } = useDropzone({ onDrop: dropCallback })
     const { ref, ...rootProps } = getRootProps()
     const classes = useStyles();
@@ -68,15 +71,18 @@ const Dropzone = ({ onDrop }) => {
     )
 }
 
-function processFile(file, onSuccess, onFail) {
-    const reader = new FileReader();
-    reader.onerror = onFail
-    reader.onload = () => {
-        const arrayBuffer = reader.result;
-        console.log(arrayBuffer);
-        onSuccess(arrayBuffer);
-    };
-    reader.readAsArrayBuffer(file);
+function processFile(file) {
+    const promise = new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = reject
+        reader.onabort = reject
+        reader.onload = () => {
+            const { name, type } = file
+            resolve({ file: { name, type, contentType: FILE }, blob: reader.result });
+        };
+        reader.readAsArrayBuffer(file);
+    })
+    return promise
 }
 
 export default Dropzone

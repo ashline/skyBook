@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import remove from "lodash/remove"
+import cloneDeep from "lodash/cloneDeep"
+
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { generateUUID } from "../../modules/helpers"
+import { EMPTY, FILE, AUDIO, VIDEO, NOTE } from "../../modules/constants"
 
 import Dropzone from "../Dropzone"
 
@@ -38,20 +48,62 @@ const useStyles = makeStyles(theme => ({
     cardMedia: {
         paddingTop: '56.25%', // 16:9
     },
-    pink: {
-        backgroundColor: "pink"
-    },
-    yellow: {
-        // backgroundColor: "yellow"
-    },
     cardContent: {
         flexGrow: 1,
     },
+    fileName: {
+        width: "100%",
+        textOverflow: "ellipsis",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+    }
 }));
 
-const files = [{ id: "new" }];
+const renderItem = (file, addFile, removeFile) => {
+    switch (file.contentType) {
+        case AUDIO:
+        case VIDEO:
+        case FILE:
+        case NOTE:
+            return <ItemCard file={file} removeFile={removeFile} />
+        default:
+            return <Dropzone onDrop={addFile} />
+    }
+}
+
+const ItemCard = ({ file, removeFile }) => {
+    const classes = useStyles();
+    const { id, name, type } = file
+    return (
+        <Card className={classes.card}>
+            <CardContent className={classes.cardContent}>
+                <Typography className={classes.fileName} gutterBottom variant="h5" component="h2">
+                    {name}
+                </Typography>
+                <Typography>
+                    {type}
+                </Typography>
+            </CardContent>
+            <CardActions>
+                <Button onClick={() => removeFile(id)} size="small" color="secondary">
+                    Remove
+                </Button>
+            </CardActions>
+        </Card>
+    )
+}
 
 const Creator = () => {
+    const [files, setFiles] = useState([{ id: EMPTY, contentType: EMPTY }]);
+    const addFile = useCallback(loadedFiles => {
+        const loadedFilesWithIDs = loadedFiles.map(file => ({ id: generateUUID(), ...file }))
+        setFiles([...loadedFilesWithIDs, ...files])
+    }, [files])
+    const removeFile = useCallback(fileID => {
+        const filesClone = cloneDeep(files)
+        remove(filesClone, { id: fileID })
+        setFiles(filesClone)
+    }, [files])
     const classes = useStyles();
     return (
         <Container className={classes.cardGrid} fixed>
@@ -91,10 +143,10 @@ const Creator = () => {
                     </Grid>
                 </Grid>
                 <Grid item xs={8} className={classes.yellow}>
-                    <Grid container justify="center" className={classes.yellow}>
-                        {files.map(({ id }) => (
+                    <Grid container justify="center" spacing={3} className={classes.yellow}>
+                        {files.map(({ id, file }) => (
                             <Grid item key={id} xs={10}>
-                                <Dropzone onDrop={() => { }} />
+                                {renderItem({ id, ...file }, addFile, removeFile)}
                             </Grid>
                         ))}
                     </Grid>

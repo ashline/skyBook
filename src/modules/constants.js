@@ -1,0 +1,8 @@
+export const FILE = "FILE"
+export const NOTE = "NOTE"
+export const AUDIO = "AUDIO"
+export const VIDEO = "VIDEO"
+export const PICTURE = "PICTURE"
+export const EMPTY = "EMPTY"
+export const FAIL = "fail"
+export const SUCCESS = "success" 

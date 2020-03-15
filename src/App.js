@@ -52,7 +52,7 @@ export default function Book() {
               This is a scrap book powered by skyNet distributed platform which allows
                you to scrap together voice notes, songs, pictures, notes and videos.
                You can even take new photos, videos and voice notes without leaving the site!
-               After saving you will get a link that you can share with your firends and loved ones.
+               After saving you will get a link that you can share with your friends and loved ones.
             </Typography>
             {/* <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">

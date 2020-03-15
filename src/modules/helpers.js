@@ -1,4 +1,4 @@
-const generateUUID = () => {
+export const generateUUID = () => {
     let uuid = ''
     const cs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < 16; i++) {
