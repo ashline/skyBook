@@ -13,9 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { generateUUID } from "../../modules/helpers"
-import { EMPTY, FILE, AUDIO, VIDEO, NOTE } from "../../modules/constants"
+import { EMPTY, FILE, AUDIO, VIDEO, NOTE, PICTURE } from "../../modules/constants"
 
 import Dropzone from "../Dropzone"
+import ComposerModal from "../ComposerModal"
 
 // TODO:
 // support file upload
@@ -95,6 +96,7 @@ const ItemCard = ({ file, removeFile }) => {
 
 const Creator = () => {
     const [files, setFiles] = useState([{ id: EMPTY, contentType: EMPTY }]);
+    const [composerMode, setComposerMode] = useState("")
     const addFile = useCallback(loadedFiles => {
         const loadedFilesWithIDs = loadedFiles.map(file => ({ id: generateUUID(), ...file }))
         setFiles([...loadedFilesWithIDs, ...files])
@@ -107,28 +109,29 @@ const Creator = () => {
     const classes = useStyles();
     return (
         <Container className={classes.cardGrid} fixed>
+            <ComposerModal mode={composerMode} onSubmit={addFile} handleClose={() => setComposerMode("")} />
             <Grid container justify="space-between" spacing={4}>
                 <Grid xs={3} item className={classes.pink}>
                     <Grid container alignItems="center" direction="column" spacing={8}>
-                        <Grid className={classes.iconContainer} item>
+                        <Grid className={classes.iconContainer} item onClick={() => setComposerMode(NOTE)}>
                             <Icon className={classes.icon}>createtwotone</Icon>
                             <Typography align="center">
                                 type
                             </Typography>
                         </Grid>
-                        <Grid className={classes.iconContainer} item>
+                        <Grid className={classes.iconContainer} item onClick={() => setComposerMode(AUDIO)}>
                             <Icon className={classes.icon}>micTwoTone</Icon>
                             <Typography align="center">
                                 record audio
                             </Typography>
                         </Grid>
-                        <Grid className={classes.iconContainer} item>
+                        <Grid className={classes.iconContainer} item onClick={() => setComposerMode(PICTURE)}>
                             <Icon className={classes.icon}>camera</Icon>
                             <Typography align="center">
                                 take picture
                             </Typography>
                         </Grid>
-                        <Grid className={classes.iconContainer} item>
+                        <Grid className={classes.iconContainer} item onClick={() => setComposerMode(VIDEO)}>
                             <Icon className={classes.icon}>videocamtwotone</Icon>
                             <Typography align="center">
                                 record video

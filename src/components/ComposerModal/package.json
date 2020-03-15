@@ -1,0 +1,5 @@
+{
+    "name": "composer-modal",
+    "description": "Modal for adding content",
+    "main": "./ComposerModal.js"
+}

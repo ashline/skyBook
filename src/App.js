@@ -54,20 +54,6 @@ export default function Book() {
                You can even take new photos, videos and voice notes without leaving the site!
                After saving you will get a link that you can share with your friends and loved ones.
             </Typography>
-            {/* <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
-                  </Button>
-                </Grid>
-              </Grid>
-            </div> */}
           </Container>
         </div>
         {/* End hero unit */}
