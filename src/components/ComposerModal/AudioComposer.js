@@ -18,13 +18,11 @@ const AudioComposer = ({ onSubmit }) => {
     const [isRecording, setIsRecording] = useState(false)
     const onStop = useCallback((recordedBlob) => {
         const id = uniqueId()
-        onSubmit([{ file: { name: `recording ${id}.mp3`, type: "audio/mp3", contentType: AUDIO }, blob: recordedBlob }])
+        onSubmit([{ file: { name: `audio recording ${id}.mp3`, type: "audio/mp3", contentType: AUDIO }, blob: recordedBlob }])
     }, [onSubmit])
     return (
         <Fragment>
             <h2 id="transition-modal-title">Record audio</h2>
-
-            <p id="transition-modal-description">react-transition-group animates me.</p>
             <div>
                 <ReactMic
                     record={isRecording}

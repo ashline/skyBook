@@ -64,6 +64,7 @@ const renderItem = (file, addFile, removeFile) => {
     switch (file.contentType) {
         case AUDIO:
         case VIDEO:
+        case PICTURE:
         case FILE:
         case NOTE:
             return <ItemCard file={file} removeFile={removeFile} />
